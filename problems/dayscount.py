@@ -2,9 +2,9 @@
 import datetime
 
 #My birthday
-birthYear = int(input('Please enter year: '))
-birthMonth = int(input('Please enter month: '))
-birthDay = int(input('Please enter day: '))
+birthYear = int(input('Please enter birth year: '))
+birthMonth = int(input('Please enter birth month: '))
+birthDay = int(input('Please enter birth day: '))
 
 #Get current date
 now = datetime.datetime.now()
