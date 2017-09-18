@@ -4,14 +4,21 @@
 #如此重复，直到剩下最后一个数，将这个数也删除
 #按照刚才删除的顺序，把这些删除的数连在一起就是明码了
 
+#You are given a coded QQ number (odd digits) and you need to decode it
+#Here is how you decode: delete the first number, then move the second number
+#to the last digit of your string
+#Then delete the third number and move the fourth number to the last digit of your string
+#Keep repeating the procedure until you delete the last number
+#The sequence of which you deleted those numbers is the QQ number 
+
 import math
 
 def decode(array,deleted):
     if len(array) > 1:
-        for i in range(2):           
+        for i in range(2):
             deleted.append(array.pop(0))
-            array.append(array.pop(0)) 
-        return decode(array,deleted)       
+            array.append(array.pop(0))
+        return decode(array,deleted)
     else:
         return deleted + array
 
