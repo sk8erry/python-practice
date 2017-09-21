@@ -18,8 +18,10 @@ def twoSum(nums, target):
         if (len(nums) == 0) or (len(nums) == 1):
             return None
         if target - nums[i] in buffer_list:
-            return i, buffer_list.index(target - nums[i])
+            return sorted([nums[i], target - nums[i]])
         else:
             buffer_list[i] = nums[i]
 
 print(twoSum([1,2,3,4],6))
+print(twoSum([1,2,3,4,5,6,45,6,7],51))
+print(twoSum([1,4,6,7,4,3,4],1000))
