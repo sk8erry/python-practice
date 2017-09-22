@@ -1,3 +1,9 @@
+'''Given an array S of n integers and a target, are there elements a, b, c
+   in S such that a + b + c = target?
+   Find all unique triplets in the array which gives the sum of zero.
+   Note: The solution set must not contain duplicate triplets.
+'''
+
 def threeSum(nums, target):
     """
     :type nums: List[int]
