@@ -14,9 +14,10 @@ def threeSum(nums, target):
             running_list = nums[:k] + nums[k+1:]
             if (len(running_list) == 0):
                 return None
-            if (target - nums[j] - running_list[k] in buffer_list):
-                if (i != j) and (j != nums.index(target - nums[j] - running_list[k])) \
-                and (i != nums.index(target - nums[j] - running_list[k])):
+            if (nums[j] + running_list[k] in buffer_list0):
+                if (nums.index(running_list[k]) != j) and \
+                (nums.index(running_list[k]) != nums.index(target - nums[j] - running_list[k])) \
+                and (j != nums.index(target - nums[j] - running_list[k])):
                     ansbuffer.append([nums[j], running_list[k], target - nums[j] - running_list[k]])
             else:
                 buffer_list[k] = running_list[k]
@@ -31,3 +32,5 @@ def threeSum(nums, target):
                 seen.add(x_set)
         return ans
 print('answer is ', threeSum([3,-2,1,0],0))
+print('answer is ', threeSum([6,4,7,3],17))
+print('answer is ', threeSum([-2,1,1,3],0))
