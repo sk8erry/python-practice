@@ -1,4 +1,8 @@
-array = [4,2,6,8,10,3,12,12,4,6]
+from random import *
+
+test_case = []
+for k in range(0,9):
+    test_case.append(randint(0,99))
 
 def sort(array):
     for j in range(1,len(array)):
@@ -8,7 +12,6 @@ def sort(array):
             array[i] = array[i-1]
             i = i - 1
         array[i] = key
-        print (j)
     return array
 
-print (sort(array))
+print (sort(test_case))
