@@ -1,36 +1,39 @@
-'''Given a string, return the longest substring without repeating characters'''
+'''
+Given a string, find the length of the longest substring without repeating characters.
 
-def longestSubstring(s):
-    '''
-    :type s: str
-    :rtype: str
-    '''
-    running_str = ''
-    running_longest = ''
-    running_longer = ''
-    i = 0
-    counter = 0
-    ifstuck = True
-    while (i < len(s)):
-        print (i)
-        if running_str.find(s[i]) == -1:
-            running_str += s[i]
+Example 1:
+Input: "abcabcbb"
+Output: 3 
+Explanation: The answer is "abc", with the length of 3. 
+
+Example 2:
+Input: "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+
+Example 3:
+Input: "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3
+'''
+
+def solution(str):
+    if len(str) <= 1: return len(str)
+    start = 0
+    end = 1
+    window = ''
+    length = 0
+    while end <= len(str) - 1:
+        window = str[start:end]
+        if str[end] not in window:
+            end += 1
         else:
-            if len(running_str) > len(running_longest):
-                running_longest = running_str
-            running_str = ''
-            i = i - 1
-            running_str += s[i]
-            ifstuck = not ifstuck 
-            if ifstuck == True: break
-        i += 1
-        counter += 1
-        #if counter > 10: break
-    if len(running_longest) > len(running_str):
-        return running_longest
-    else:
-        return running_str
+            start += 1
+        length = max(length, end - start)
+    return length
 
-print(longestSubstring('pwkew')) #output = vdf
-print(longestSubstring('abcabcbb')) #output = abc
-print(longestSubstring('dvdf')) #vdf
+print(solution('abcabc'))
+print(solution('au'))
+print(solution('pwwkew'))
+
+
