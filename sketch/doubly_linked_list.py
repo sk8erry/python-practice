@@ -15,11 +15,10 @@ class doubly_linked_list():
         prev = None
         if self.head.data == None: self.head = node(data)
         while current_node.next != None:
-            prev = current_node
             current_node = current_node.next
         current_node.next = node(data)
-        current_node.next.prev = prev
-        #something wrong with prev, need fixing
+        current_node.next.prev = current_node
+        print(current_node.next.prev.data)
 
     def display(self):
         current_node = self.head
@@ -33,5 +32,9 @@ test_list = doubly_linked_list()
 test_list.append(1)
 test_list.append(2)
 test_list.append(3)
+
+
+for i in range(0,5):
+    test_list.append(random.randint(0,100))
 
 print(test_list.display())
