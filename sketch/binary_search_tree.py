@@ -1,3 +1,5 @@
+import sys
+
 class node(): 
     def __init__(self, value=None):
         self.value = value
@@ -39,10 +41,22 @@ class binary_search_tree():
         
     def _display(self, current_node):
         if current_node != None:
+            #Inorder traversal
             self._display(current_node.left)
             print(current_node.value)
             self._display(current_node.right)
         return
+    
+    def level_print(self): #Breadth first traversal
+        this_level = [self.root]
+        while this_level:
+            next_level = list()
+            for node in this_level:
+                sys.stdout.write(str(node.value)+' ')
+                if node.left: next_level.append(node.left)
+                if node.right: next_level.append(node.right)
+            sys.stdout.write('\n')
+            this_level = next_level
 
     def height(self):
         if self.root != None:
@@ -88,16 +102,20 @@ class binary_search_tree():
         node_num_children = self.num_children(node)
         #Case 1 (node has no child)
         if node_num_children == 0:
-            if node.parent.left == None: node.parent.left = None
+            if node.parent.left == node: node.parent.left = None
             else: node.parent.right = None
                 
         #Case 2 (node has 1 child)
         if node_num_children == 1:
+            if node.parent.left == node: node.parent.left = node.left or node.right
+            else: node.parent.right = node.left or node.right
+            '''
             if node.left != None: child = node.left
             else: child = node.right
             if node.parent.left == node: node.parent.left = child
             else: node.parent.right = child
             child.parent = node.parent
+            '''
         
         #Case 3 (node has 2 children)
         if node_num_children == 2:
@@ -125,9 +143,8 @@ test_tree.insert(6)
 test_tree.insert(10)
 test_tree.insert(9)
 test_tree.insert(11)
+test_tree.insert(3)
+test_tree.insert(7)
 
-test_tree.display()
-
-print(test_tree.delete(6))
-print("Delete node 6")
-test_tree.display()
+#test_tree.display()
+test_tree.level_print()
