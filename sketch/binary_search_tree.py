@@ -165,27 +165,21 @@ class binary_search_tree():
     
     def _two_sum(self, target, current_node, table):
         if current_node:
-            print (current_node.value, table)
-            if current_node.value in table: 
-                print('found')
+            if current_node.value in table:
                 return current_node.value, target - current_node.value
             table.append(target - current_node.value)
             return self._two_sum(target, current_node.left, table) or self._two_sum(target, current_node.right, table)
 
-'''
-def search(self, value): #Returns True or False
-    if self.root != None:
-        return self._search(self.root, value)
-    else: print("Tree empty")
+    def range_sum(self, L, R): #Return the sum of values of all nodes with value between L and R (inclusive).
+        if self.root == None: return False
+        else: return self._range_sum(self.root, L, R, ans = 0)
     
-def _search(self, current_node, value):
-    if current_node.value == value: return True
-    elif value < current_node.value and current_node.left != None:
-        return self._search(current_node.left, value)
-    elif value > current_node.value and current_node.right != None:
-        return self._search(current_node.right, value)
-    return False
-'''
+    def _range_sum(self, current_node, L, R, ans):
+        if current_node:
+            if L <= current_node.value and current_node.value <= R:
+                ans += current_node.value
+            self._range_sum(current_node.left, L, R, ans)
+            self._range_sum(current_node.right, L, R, ans)
 
 test_tree = binary_search_tree()
 
@@ -197,5 +191,5 @@ test_tree.insert(4)
 test_tree.insert(7)
 
 test_tree.level_print()
-print(test_tree.two_sum(11))
-#test_tree.level_print()
+
+print(test_tree.range_sum(2,5))
