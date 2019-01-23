@@ -160,6 +160,22 @@ class binary_search_tree():
     def split(self, inorder, middle_point): #Split a list into two by middle point
         return inorder[0:inorder.index(middle_point)], inorder[inorder.index(middle_point)+1:]
 
+    def two_sum(self, target): #Given a number, find two nodes such that the sum of their value is the number
+        if self.root == None: return False
+        else: 
+            return self._two_sum(target, self.root, table = [])
+    
+    def _two_sum(self, target, current_node, table):
+        if current_node == None: return False
+        table.append([target - current_node.value, current_node])
+        for pair in table:
+            if current_node.value == pair[0]:
+                return current_node, pair[1] #Return these two nodes
+        else: 
+            return self._two_sum(target, current_node.left, table)
+            return self._two_sum(target, current_node.right, table)
+        
+
 test_tree = binary_search_tree()
 
 preorder = [3,9,20,15,7]
@@ -173,4 +189,5 @@ inorder = [9,3,15,20,7]
    15   7
 '''
 test_tree.contruct(preorder, inorder)
-test_tree.level_print()
+node1, node2 = test_tree.two_sum(12)
+print(node1.value, node2.value)
