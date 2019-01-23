@@ -134,6 +134,44 @@ class binary_search_tree():
         if node.left != None: num_children += 1
         if node.right != None: num_children += 1
         return num_children
+    
+    def contruct(self, preorder, inorder): #Construct BST from preorder and inorder traversal
+        self.root = node(preorder[0])
+        self._construct(preorder, inorder, self.root)
+    
+    def _construct(self, preorder, inorder, current_node):
+        if len(inorder) == 0 or len(preorder) == 0: 
+            return
+        else:
+            current_node.value = preorder[0]
+            inorder_left_sub_tree, inorder_right_sub_tree = self.split(inorder, current_node.value)
+            preorder_left_sub_tree = list(set(inorder) & set(inorder_left_sub_tree))
+            preorder_right_sub_tree = list(set(inorder) & set(inorder_right_sub_tree))
+            if len(preorder_left_sub_tree) == 0 or len(preorder_right_sub_tree) == 0: return
+            current_node.left = node(preorder_left_sub_tree[0])
+            current_node.right = node(preorder_right_sub_tree[0])
+            if len(preorder_left_sub_tree) > 1: 
+                self._construct(preorder_left_sub_tree, inorder_left_sub_tree, current_node.left)
+            if len(preorder_right_sub_tree) > 1:
+                self._construct(preorder_right_sub_tree, inorder_right_sub_tree, current_node.right)
+    
+    def split(self, inorder, middle_point): #Split a list into two by middle point
+        return inorder[0:inorder.index(middle_point)], inorder[inorder.index(middle_point)+1:]
+
+    def two_sum(self, target): #Given a number, find two nodes such that the sum of their value is the number
+        if self.root == None: return False
+        else: 
+            return self._two_sum(target, self.root, table = [])
+    
+    def _two_sum(self, target, current_node, table):
+        if current_node == None: return False
+        table.append([target - current_node.value, current_node])
+        for pair in table:
+            if current_node.value == pair[0]:
+                return current_node, pair[1] #Return these two nodes
+        else: 
+            return self._two_sum(target, current_node.left, table)
+            return self._two_sum(target, current_node.right, table)
 
 test_tree = binary_search_tree()
 
