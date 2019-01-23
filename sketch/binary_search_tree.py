@@ -70,7 +70,7 @@ class binary_search_tree():
             right_height = self._height(current_node.right, current_height + 1)
         return max(left_height, right_height)
     
-    def search(self, value):
+    def search(self, value): #Returns True or False
         if self.root != None:
             return self._search(self.root, value)
         else: print("Tree empty")
@@ -83,7 +83,7 @@ class binary_search_tree():
             return self._search(current_node.right, value)
         return False
     
-    def find(self, value):
+    def find(self, value): #Returns a node
         if self.root.value == value: return self.root
         else: return self._find(self.root, value)
     
@@ -164,25 +164,38 @@ class binary_search_tree():
             return self._two_sum(target, self.root, table = [])
     
     def _two_sum(self, target, current_node, table):
-        if current_node == None: return False
-        table.append([target - current_node.value, current_node])
-        for pair in table:
-            if current_node.value == pair[0]:
-                return current_node, pair[1] #Return these two nodes
-        else: 
-            return self._two_sum(target, current_node.left, table)
-            return self._two_sum(target, current_node.right, table)
+        if current_node:
+            print (current_node.value, table)
+            if current_node.value in table: 
+                print('found')
+                return current_node.value, target - current_node.value
+            table.append(target - current_node.value)
+            return self._two_sum(target, current_node.left, table) or self._two_sum(target, current_node.right, table)
+
+'''
+def search(self, value): #Returns True or False
+    if self.root != None:
+        return self._search(self.root, value)
+    else: print("Tree empty")
+    
+def _search(self, current_node, value):
+    if current_node.value == value: return True
+    elif value < current_node.value and current_node.left != None:
+        return self._search(current_node.left, value)
+    elif value > current_node.value and current_node.right != None:
+        return self._search(current_node.right, value)
+    return False
+'''
 
 test_tree = binary_search_tree()
 
 test_tree.insert(5)
-test_tree.insert(4)
-test_tree.insert(6)
-test_tree.insert(10)
-test_tree.insert(9)
-test_tree.insert(11)
 test_tree.insert(3)
+test_tree.insert(6)
+test_tree.insert(2)
+test_tree.insert(4)
 test_tree.insert(7)
 
-#test_tree.display()
 test_tree.level_print()
+print(test_tree.two_sum(11))
+#test_tree.level_print()
