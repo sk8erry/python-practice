@@ -40,7 +40,7 @@ class binary_search_tree():
         else: print("Tree empty")
         
     def _display(self, current_node):
-        if current_node != None:
+        if current_node:
             #Inorder traversal
             self._display(current_node.left)
             print(current_node.value)
@@ -172,24 +172,28 @@ class binary_search_tree():
 
     def range_sum(self, L, R): #Return the sum of values of all nodes with value between L and R (inclusive).
         if self.root == None: return False
-        else: return self._range_sum(self.root, L, R, ans = 0)
+        else:
+            return self._range_sum(self.root, L, R)
     
-    def _range_sum(self, current_node, L, R, ans):
-        if current_node:
-            if L <= current_node.value and current_node.value <= R:
-                ans += current_node.value
-            self._range_sum(current_node.left, L, R, ans)
-            self._range_sum(current_node.right, L, R, ans)
+    def _range_sum(self, current_node, L, R):
+        if current_node == None:
+            return 0
+        ans = 0
+        if L <= current_node.value and current_node.value <= R:
+            ans += current_node.value
+        ans += self._range_sum(current_node.left, L, R) 
+        ans += self._range_sum(current_node.right, L, R)
+        return ans
 
 test_tree = binary_search_tree()
 
+test_tree.insert(10)
 test_tree.insert(5)
+test_tree.insert(15)
 test_tree.insert(3)
-test_tree.insert(6)
-test_tree.insert(2)
-test_tree.insert(4)
 test_tree.insert(7)
+test_tree.insert(18)
 
 test_tree.level_print()
 
-print(test_tree.range_sum(2,5))
+print(test_tree.range_sum(7,15))
